@@ -1,15 +1,52 @@
-    <div class="barraBusqueda">
-     <div class="acciones">
-    <table>
-        <tr>
-            <td><button routerLink="/buscar" id="buscarAnillo">Buscar Anillo</button></td>
-            <td><button id="crearAnillo">Crear Anillo</button></td>
-        </tr>
-    </table>
+<div class="barraBusqueda">
+    <div class="acciones">
+        <table>
+            <tr>
+                <td><button routerLink="/buscar" id="buscarAnillo">Buscar Anillo</button></td>
+                <td><button routerLink="/detalle" id="crearAnillo" class="btn-seleccionado">Crear Anillo</button></td>
+            </tr>
+        </table>
     </div>
-    </div>
+</div>
 
-    <div class="formulario">
-            <!--<label for="nombre">Nombre: </label>
-            <input id="nombre" value =" ">-->       
+<div class="container-formulario">
+    <div class="card-diseno p-fluid">
+        <h2 class="titulo-form">Forjar Nuevo Anillo</h2>
+        
+        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+            
+            <div class="field">
+                <label for="nombre">Nombre del Anillo</label>
+                <input type="text" id="nombre" pInputText formControlName="nombre" placeholder="Nombre místico..."/>
+                @if (formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched) {
+                    <small class="p-error">El nombre es obligatorio (mínimo 3 letras).</small>
+                }
+            </div>
+
+            <div class="field">
+                <label for="portador">Portador</label>
+                <input type="text" id="portador" pInputText formControlName="portador" placeholder="Nombre del portador..."/>
+            </div>
+
+            <div class="field">
+                <label>Raza del Portador</label>
+                <p-select [options]="opcionesRazas" formControlName="raza" optionLabel="label" placeholder="Seleccione una raza"></p-select>
+            </div>
+
+            <div class="field">
+                <label for="poder">Poder Principal</label>
+                <input id="poder" type="text" pInputText formControlName="poder" placeholder="Ej: Invisibilidad" />
+            </div>
+
+            <div class="field">
+                <label>Nivel de Corrupción: <span class="porcentaje">{{ formulario.get('corrupcion')?.value }}%</span></label>
+                <p-slider formControlName="corrupcion" [min]="0" [max]="100"></p-slider>
+            </div>
+
+            <div class="botones-accion">
+                <button pButton type="submit" label="Guardar Anillo" icon="pi pi-bolt" [disabled]="formulario.invalid"></button>
+                <button pButton type="button" label="Limpiar" icon="pi pi-trash" class="p-button-secondary p-button-text" (click)="limpiar()"></button>
+            </div>
+        </form>    
     </div>
+</div>
