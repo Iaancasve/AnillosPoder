@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>Lista de Personajes</h2>
+
+  <div *ngIf="error" class="alert-error">
+    {{ error }}
+  </div>
+
+  <div class="grid-personajes">
+    @for (personaje of personajes; track personaje.id) {
+      <div class="card">
+        <img [src]="personaje.image" [alt]="personaje.name" class="card-img">
+        <div class="card-body">
+          <h3>{{ personaje.name }}</h3>
+          <p><strong>Especie:</strong> {{ personaje.species }}</p>
+          <p><strong>Estado:</strong> {{ personaje.status }}</p>
+        </div>
+      </div>
+    } @empty {
+      <p>No se encontraron personajes.</p>
+    }
+  </div>
+</div>
