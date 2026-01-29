@@ -2,15 +2,12 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PersonajesService } from './../../servicios/personajes-service';
-
-// Importaciones de PrimeNG
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-buscar-personaje',
   standalone: true,
-  // IMPORTANTE: Asegúrate de que TableModule y ButtonModule están aquí
   imports: [
     CommonModule, 
     RouterModule, 
@@ -30,14 +27,14 @@ export class BuscarPersonaje implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log("Componente BuscarPersonaje iniciado"); // Para depurar
+    console.log("Componente BuscarPersonaje iniciado"); 
     this.cargarPersonajes();
   }
 
   cargarPersonajes(): void {
     this.personajesService.obtenerPersonajes().subscribe({
       next: (data) => {
-        console.log("Datos recibidos:", data); // Mira la consola (F12) para ver si llegan datos
+        console.log("Datos recibidos:", data); 
         this.personajes = data;
         this.error = "";
         this.cdr.detectChanges(); 

@@ -40,18 +40,13 @@ export class DetallePersonaje implements OnInit {
   }
 
   cargarDatosPersonaje(id: number) {
-    this.personajesService.obtenerPersonajes().subscribe({
-      next: (listaPersonajes) => {
-        const personajeEncontrado = listaPersonajes.find((p: any) => p.id === id);
+    this.personajesService.obtenerPersonajePorId(id).subscribe({
+      next: (personajeEncontrado) => {
         if (personajeEncontrado) {
-          let fecha = null;
-          if (personajeEncontrado.fechaNacimiento) {
-            fecha = new Date(personajeEncontrado.fechaNacimiento);
-          }
           this.formulario.patchValue({
             nombre: personajeEncontrado.nombre,
             raza: personajeEncontrado.raza,
-            fechaNacimiento: fecha
+            fechaNacimiento: personajeEncontrado.fechaNacimiento ? new Date(personajeEncontrado.fechaNacimiento) : null
           });
         }
       },
@@ -60,52 +55,56 @@ export class DetallePersonaje implements OnInit {
   }
 
   guardar() {
-  if (this.formulario.invalid) {
-    this.formulario.markAllAsTouched();
-    return;
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      return;
+    }
+
+    
+    const datos = { ...this.formulario.value };
+
+    
+    if (datos.raza) {
+      datos.raza = datos.raza.toUpperCase();
+    }
+
+   
+    if (datos.fechaNacimiento instanceof Date) {
+      const d = datos.fechaNacimiento;
+      datos.fechaNacimiento = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    if (this.esEdicion && this.idPersonaje !== null) {
+     
+      const personajeActualizado = { 
+        ...datos, 
+        id: this.idPersonaje 
+      };
+
+      this.personajesService.actualizarPersonaje(personajeActualizado).subscribe({
+        next: (response) => {
+          alert('Personaje actualizado con éxito');
+          this.router.navigate(['/buscar-personajes']);
+        },
+        error: (err) => {
+          console.error('Error al actualizar', err);
+          alert('Error al actualizar personaje');
+        }
+      });
+    } else {
+      
+      this.personajesService.crearPersonaje(datos).subscribe({
+        next: (response) => {
+          alert('Personaje creado con éxito');
+          this.router.navigate(['/buscar-personajes']);
+        },
+        error: (err) => {
+          console.error('Error al crear', err);
+          alert('Error al crear personaje');
+        }
+      });
+    } 
   }
-
-  // Obtenemos los valores del formulario
-  const datos = { ...this.formulario.value };
-
-  // Formateamos la fecha a string (YYYY-MM-DD) para que el servidor la acepte
-  if (datos.fechaNacimiento instanceof Date) {
-    const d = datos.fechaNacimiento;
-    datos.fechaNacimiento = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-  }
-
-  if (this.esEdicion && this.idPersonaje !== null) {
-    // UNIFICAMOS: Metemos el ID dentro del objeto 'datos'
-    const personajeActualizado = { 
-      ...datos, 
-      id: this.idPersonaje 
-    };
-
-    // LLAMADA CON UN SOLO ARGUMENTO (personajeActualizado)
-    this.personajesService.actualizarPersonaje(personajeActualizado).subscribe({
-      next: (response) => {
-        alert('Personaje actualizado con éxito');
-        this.router.navigate(['/buscar-personajes']);
-      },
-      error: (err) => {
-        console.error('Error al actualizar', err);
-        alert('Error al actualizar personaje');
-      } 
-    });
-  } else {
-    // Lógica para crear (insertarPersonaje)
-    this.personajesService.crearPersonaje(datos).subscribe({
-      next: (response) => {
-        alert('Personaje creado con éxito');
-        this.router.navigate(['/buscar-personajes']);
-      },
-      error: (err) => {
-        console.error('Error al crear', err);
-        alert('Error al crear personaje');
-      }
-    });
-  } 
-}
 
   volver() {
     this.router.navigate(['/buscar-personajes']);

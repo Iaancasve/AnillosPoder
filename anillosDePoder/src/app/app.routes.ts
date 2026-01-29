@@ -12,7 +12,7 @@ export const routes: Routes = [
     { path: 'detalleRaza', component: DetalleRaza },
     { path: 'buscarRaza', component: BusquedaRaza },
     
-    // Rutas solicitadas para Personajes
+    // Rutas para Personajes
     { path: 'buscar-personajes', component: BuscarPersonaje },
     { path: 'editar/:id', component: DetallePersonaje },
     { path: 'crearPersonaje', component: DetallePersonaje },

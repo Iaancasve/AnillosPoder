@@ -7,28 +7,23 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PersonajesService {
-  // Usamos la URL base definida en el environment
   private urlESDLN = environment.apiESDLA;
 
   constructor(private http: HttpClient){}
 
-  // Método existente para listar todos los personajes
-  obtenerPersonajes(): Observable<any[]>{
-    return this.http.get<any[]>(`${this.urlESDLN}listaPersonajes`);
-  }
+obtenerPersonajes(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.urlESDLN}listaPersonajes`);
+}
 
-  // NUEVO: Obtener un solo personaje por su ID para editarlo
-  obtenerPersonajePorId(id: number): Observable<any> {
-    return this.http.get<any>(`${this.urlESDLN}personaje/${id}`);
-  }
+obtenerPersonajePorId(id: number): Observable<any> {
+  return this.http.get<any>(`${this.urlESDLN}obtenerPersonaje/${id}`);
+}
 
-  // NUEVO: Enviar datos para crear un nuevo personaje
-  crearPersonaje(personaje: any): Observable<any> {
-    return this.http.post<any>(`${this.urlESDLN}crear`, personaje);
-  }
+crearPersonaje(personaje: any): Observable<any> {
+  return this.http.post<any>(`${this.urlESDLN}insertarPersonaje`, personaje);
+}
 
-  // NUEVO: Enviar datos para actualizar un personaje existente
-  actualizarPersonaje(personaje: any): Observable<any> {
-    return this.http.put<any>(`${this.urlESDLN}editar`, personaje);
-  }
+actualizarPersonaje(personaje: any): Observable<any> {
+  return this.http.put<any>(`${this.urlESDLN}actualizarPersonaje/${personaje.id}`, personaje);
+}
 }
