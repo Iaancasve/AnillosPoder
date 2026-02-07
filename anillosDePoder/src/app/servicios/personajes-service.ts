@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,4 +27,19 @@ crearPersonaje(personaje: any): Observable<any> {
 actualizarPersonaje(personaje: any): Observable<any> {
   return this.http.put<any>(`${this.urlESDLN}actualizarPersonaje/${personaje.id}`, personaje);
 }
+
+bajaLogica(id: number): Observable<any> {
+  return this.http.put(`${this.urlESDLN}bajaLogica/${id}`, {});
+}
+
+  
+bajaFisica(id: number): Observable<any> {
+  return this.http.delete(`${this.urlESDLN}bajaFisica/${id}`);
+}
+
+  
+reactivar(id: number): Observable<any> {
+  return this.http.put(`${this.urlESDLN}reactivar/${id}`, {});
+}
+
 }
