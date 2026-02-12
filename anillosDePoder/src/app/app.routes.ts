@@ -5,6 +5,7 @@ import { DetalleRaza } from './detalle/detalle-raza/detalle-raza';
 import { BusquedaRaza } from './busquedaRaza/busqueda-raza/busqueda-raza';
 import { BuscarPersonaje } from './personajes/buscar-personaje/buscar-personaje';
 import { DetallePersonaje } from './personajes/detalle-personaje/detalle-personaje';
+import { PortadoresComponent } from './portadores-component/portadores-component';
 
 export const routes: Routes = [
     { path: 'detalle', component: Detalle },
@@ -16,6 +17,8 @@ export const routes: Routes = [
     { path: 'buscar-personajes', component: BuscarPersonaje },
     { path: 'editar/:id', component: DetallePersonaje },
     { path: 'crearPersonaje', component: DetallePersonaje },
+
+    { path: 'portadores', component: PortadoresComponent}
     
     
 ];
