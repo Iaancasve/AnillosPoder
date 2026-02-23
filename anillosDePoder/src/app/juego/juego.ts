@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; 
 import { JuegoService } from '../servicios/juego-service';
-import { Pregunta } from '../interfaces/juego';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core';
+import { Pregunta } from '../interfaces/juego';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-juego',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './juego.html'
+  imports: [CommonModule, ButtonModule, RippleModule, CardModule],
+  templateUrl: './juego.html',
+  styleUrl: './juego.css',
 })
 export class JuegoComponent implements OnInit {
   preguntaActual?: Pregunta;
@@ -18,7 +21,7 @@ export class JuegoComponent implements OnInit {
   juegoTerminado = false;
   mensajeFinal: string = '';
 
-  constructor(private juegoService: JuegoService, private cdr: ChangeDetectorRef) { }
+  constructor(private juegoService: JuegoService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.iniciar();
@@ -35,15 +38,14 @@ export class JuegoComponent implements OnInit {
   }
 
   cargarPregunta() {
-    let id;
-    do {
-      id = Math.floor(Math.random() * 10) + 1;
-    } while (this.respondidas.includes(id) && this.respondidas.length < 10);
+    this.preguntaActual = undefined;
+    this.cdr.detectChanges(); 
 
+    let id = Math.floor(Math.random() * 10) + 1;
     this.juegoService.obtenerPregunta(id).subscribe(data => {
       this.preguntaActual = data;
-      this.cdr.detectChanges();
       this.respondidas.push(id);
+      this.cdr.detectChanges();
     });
   }
 
@@ -53,13 +55,13 @@ export class JuegoComponent implements OnInit {
     this.juegoService.comprobarRespuesta(this.preguntaActual.id, indice).subscribe(esCorrecta => {
       if (esCorrecta) {
         this.aciertos++;
-        this.juegoService.sumarPunto(this.idPartidaActual!).subscribe();
-
-        if (this.aciertos === 5) {
-          this.terminar('victoria');
-        } else {
-          this.cargarPregunta();
-        }
+        this.juegoService.sumarPunto(this.idPartidaActual!).subscribe(() => {
+          if (this.aciertos === 5) {
+            this.terminar('victoria');
+          } else {
+            this.cargarPregunta();
+          }
+        });
       } else {
         this.terminar('derrota');
       }
@@ -70,19 +72,19 @@ export class JuegoComponent implements OnInit {
   terminar(resultado: 'victoria' | 'derrota') {
     this.juegoService.finalizarPartida(this.idPartidaActual!).subscribe(() => {
       this.juegoTerminado = true;
-      this.mensajeFinal = resultado === 'victoria'
-        ? '¡Has ganado! Eres un auténtico maestre de la Tierra Media.'
-        : 'Has caído en la oscuridad. ¡Inténtalo de nuevo!';
-
-      // Guardar en localStorage para estadísticas
+      this.mensajeFinal = resultado === 'victoria' 
+        ? '¡Has ganado! Eres un experto.' 
+        : '¡Has perdido! Sigue estudiando.';
+      
       const stats = JSON.parse(localStorage.getItem('historial') || '[]');
-      stats.push({
+      stats.push({ 
         idPartida: this.idPartidaActual,
-        fecha: new Date().toLocaleString(),
-        resultado: resultado,
-        aciertos: this.aciertos
+        fecha: new Date().toLocaleString(), 
+        resultado: resultado, 
+        aciertos: this.aciertos 
       });
       localStorage.setItem('historial', JSON.stringify(stats));
+      this.cdr.detectChanges();
     });
   }
 }

@@ -1,0 +1,77 @@
+
+.juego-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    padding: 20px;
+}
+
+
+.stats-header {
+    background: rgba(20, 20, 20, 0.9);
+    border: 2px solid #d4af37;
+    border-radius: 12px;
+    padding: 1rem 3rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.titulo-juego {
+    color: #d4af37;
+    font-family: 'Cinzel', serif; 
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.marcador {
+    color: white;
+    font-size: 1.2rem;
+}
+
+.puntos {
+    color: #4ade80;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+
+::ng-deep .card-fantasia {
+    background: rgba(25, 25, 25, 0.95) !important;
+    border: 1px solid #d4af37 !important;
+    color: white !important;
+    width: 100%;
+    max-width: 550px;
+}
+
+.enunciado {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+
+.opciones-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.p-button-gold {
+    background: transparent !important;
+    border: 1px solid #d4af37 !important;
+    color: #d4af37 !important;
+    padding: 1rem !important;
+    font-weight: bold !important;
+    transition: all 0.3s ease !important;
+}
+
+.p-button-gold:hover {
+    background: #d4af37 !important;
+    color: black !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5) !important;
+}

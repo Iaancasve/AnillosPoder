@@ -1,0 +1,47 @@
+.stats-page {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.resumen-cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.stat-box {
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 180px;
+    border: 2px solid;
+    background: rgba(0,0,0,0.6);
+}
+
+.victoria { border-color: #22c55e; color: #22c55e; }
+.derrota { border-color: #ef4444; color: #ef4444; }
+
+.valor {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+
+::ng-deep .custom-table .p-datatable-thead > tr > th {
+    background: #1a1a1a !important;
+    color: #d4af37 !important;
+    border-color: #333 !important;
+    text-transform: uppercase;
+}
+
+::ng-deep .custom-table .p-datatable-tbody > tr {
+    background: rgba(30, 30, 30, 0.8) !important;
+    color: #eee !important;
+}
+
+.badge-victoria { color: #4ade80; font-weight: bold; }
+.badge-derrota { color: #f87171; font-weight: bold; }

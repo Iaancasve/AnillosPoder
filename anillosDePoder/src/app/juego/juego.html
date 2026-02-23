@@ -1,41 +1,45 @@
-<div style="padding: 20px; color: white; text-align: center;">
-  <h2>Desafío de la Tierra Media</h2>
-  <p>Aciertos actuales: {{ aciertos }} / 5</p>
+<div class="juego-wrapper">
+  <div class="stats-header p-shadow-4">
+    <h2 class="titulo-juego">Desafío de la Tierra Media</h2>
+    <div class="marcador">
+      <span class="label">Aciertos: </span>
+      <span class="puntos">{{ aciertos }} / 5</span>
+    </div>
+  </div>
 
   @if (!juegoTerminado && preguntaActual) {
-    <div class="card" style="background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; max-width: 500px; margin: auto;">
-      <h3>{{ preguntaActual.pregunta }}</h3>
-      
-      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-        <button type="button" (click)="responder(0); $event.stopPropagation()" class="p-button">
-          {{ preguntaActual.respuesta1 }}
-        </button>
+    <div class="pregunta-container animate-fadein">
+      <p-card styleClass="card-fantasia">
+        <div class="enunciado">
+          "{{ preguntaActual.pregunta }}"
+        </div>
         
-        <button type="button" (click)="responder(1); $event.stopPropagation()" class="p-button">
-          {{ preguntaActual.respuesta2 }}
-        </button>
-        
-        <button type="button" (click)="responder(2); $event.stopPropagation()" class="p-button">
-          {{ preguntaActual.respuesta3 }}
-        </button>
-        
-        <button type="button" (click)="responder(3); $event.stopPropagation()" class="p-button">
-          {{ preguntaActual.respuesta4 }}
-        </button>
-      </div>
+        <div class="opciones-grid">
+          <button pButton pRipple type="button" (click)="responder(0)" class="p-button-gold">
+            {{ preguntaActual.respuesta1 }}
+          </button>
+          <button pButton pRipple type="button" (click)="responder(1)" class="p-button-gold">
+            {{ preguntaActual.respuesta2 }}
+          </button>
+          <button pButton pRipple type="button" (click)="responder(2)" class="p-button-gold">
+            {{ preguntaActual.respuesta3 }}
+          </button>
+          <button pButton pRipple type="button" (click)="responder(3)" class="p-button-gold">
+            {{ preguntaActual.respuesta4 }}
+          </button>
+        </div>
+      </p-card>
     </div>
   }
 
   @if (juegoTerminado) {
-    <div class="resultado" style="margin-top: 20px; background: rgba(0,0,0,0.8); padding: 30px; border-radius: 15px;">
-      <h3>¡Partida Finalizada!</h3>
-      <p style="font-size: 1.2rem; font-weight: bold;">{{ mensajeFinal }}</p>
-      <p>Puntuación total: {{ aciertos }} puntos.</p>
-      
-      <button type="button" (click)="iniciar()" 
-              style="padding: 10px 25px; cursor: pointer; background-color: #d4af37; border: none; font-weight: bold; margin-top: 15px;">
-        Intentar de nuevo
-      </button>
+    <div class="final-container animate-bouncein">
+      <p-card styleClass="card-final">
+        <i class="pi pi-shield icono-final"></i>
+        <h3>Partida Finalizada</h3>
+        <p class="mensaje">{{ mensajeFinal }}</p>
+        <button pButton label="Reintentar Desafío" icon="pi pi-sync" (click)="iniciar()" class="p-button-raised p-button-warning"></button>
+      </p-card>
     </div>
   }
 </div>

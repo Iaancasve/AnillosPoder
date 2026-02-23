@@ -96,3 +96,15 @@ tbody {
 tr {
   border: green 5px solid;
 }
+
+.p-button.p-button-warning {
+    background-color: #d4af37 !important;
+    border-color: #b8860b !important;
+    color: #000 !important;
+}
+
+.p-button.p-button-warning:hover {
+    background-color: #f1c40f !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}

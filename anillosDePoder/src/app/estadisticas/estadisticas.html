@@ -1,1 +1,34 @@
-<p>estadisticas works!</p>
+<div class="stats-page">
+  <div class="resumen-cards">
+    <div class="stat-box victoria">
+      <span class="titulo">Victorias</span>
+      <span class="valor">{{ victorias }}</span>
+    </div>
+    <div class="stat-box derrota">
+      <span class="titulo">Derrotas</span>
+      <span class="valor">{{ derrotas }}</span>
+    </div>
+  </div>
+
+  <div class="tabla-container p-shadow-10">
+    <h2 class="tabla-titulo">Crónicas de Guerra</h2>
+    <p-table [value]="historial" styleClass="p-datatable-sm custom-table">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Fecha</th>
+          <th>Resultado</th>
+          <th>Aciertos</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-p>
+        <tr>
+          <td>{{ p.fecha }}</td>
+          <td>
+            <span [class]="'badge-' + p.resultado">{{ p.resultado | uppercase }}</span>
+          </td>
+          <td class="text-center">{{ p.aciertos }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

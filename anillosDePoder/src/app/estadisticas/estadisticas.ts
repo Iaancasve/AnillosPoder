@@ -1,23 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PartidaHistorial } from '../interfaces/partida-historial'; 
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <div style="padding: 20px; color: white;">
-      <h2>Estadísticas de Partidas</h2>
-      <p>Victorias: {{ victorias }} | Derrotas: {{ derrotas }}</p>
-      <hr>
-      <ul>
-        @for (p of historial; track p.idPartida) {
-          <li>{{ p.fecha }} - Partida #{{ p.idPartida }}: {{ p.resultado }} ({{ p.aciertos }} aciertos)</li>
-        }
-      </ul>
-    </div>
-  `
+  imports: [CommonModule, TableModule],
+  templateUrl: './estadisticas.html',
+  styleUrl: './estadisticas.css',
 })
 export class EstadisticasComponent implements OnInit {
   historial: PartidaHistorial[] = []; 
