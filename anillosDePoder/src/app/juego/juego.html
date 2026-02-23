@@ -1,0 +1,41 @@
+<div style="padding: 20px; color: white; text-align: center;">
+  <h2>Desafío de la Tierra Media</h2>
+  <p>Aciertos actuales: {{ aciertos }} / 5</p>
+
+  @if (!juegoTerminado && preguntaActual) {
+    <div class="card" style="background: rgba(0,0,0,0.7); padding: 20px; border-radius: 10px; max-width: 500px; margin: auto;">
+      <h3>{{ preguntaActual.pregunta }}</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+        <button type="button" (click)="responder(0); $event.stopPropagation()" class="p-button">
+          {{ preguntaActual.respuesta1 }}
+        </button>
+        
+        <button type="button" (click)="responder(1); $event.stopPropagation()" class="p-button">
+          {{ preguntaActual.respuesta2 }}
+        </button>
+        
+        <button type="button" (click)="responder(2); $event.stopPropagation()" class="p-button">
+          {{ preguntaActual.respuesta3 }}
+        </button>
+        
+        <button type="button" (click)="responder(3); $event.stopPropagation()" class="p-button">
+          {{ preguntaActual.respuesta4 }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (juegoTerminado) {
+    <div class="resultado" style="margin-top: 20px; background: rgba(0,0,0,0.8); padding: 30px; border-radius: 15px;">
+      <h3>¡Partida Finalizada!</h3>
+      <p style="font-size: 1.2rem; font-weight: bold;">{{ mensajeFinal }}</p>
+      <p>Puntuación total: {{ aciertos }} puntos.</p>
+      
+      <button type="button" (click)="iniciar()" 
+              style="padding: 10px 25px; cursor: pointer; background-color: #d4af37; border: none; font-weight: bold; margin-top: 15px;">
+        Intentar de nuevo
+      </button>
+    </div>
+  }
+</div>

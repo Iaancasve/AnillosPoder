@@ -6,6 +6,8 @@ import { BusquedaRaza } from './busquedaRaza/busqueda-raza/busqueda-raza';
 import { BuscarPersonaje } from './personajes/buscar-personaje/buscar-personaje';
 import { DetallePersonaje } from './personajes/detalle-personaje/detalle-personaje';
 import { PortadoresComponent } from './portadores-component/portadores-component';
+import { JuegoComponent } from './juego/juego';
+import { EstadisticasComponent } from './estadisticas/estadisticas';
 
 export const routes: Routes = [
     { path: 'detalle', component: Detalle },
@@ -18,7 +20,10 @@ export const routes: Routes = [
     { path: 'editar/:id', component: DetallePersonaje },
     { path: 'crearPersonaje', component: DetallePersonaje },
 
-    { path: 'portadores', component: PortadoresComponent}
+    { path: 'portadores', component: PortadoresComponent},
+    
+    { path: 'juego', component: JuegoComponent },
+    { path: 'estadisticas', component: EstadisticasComponent },
     
     
 ];
